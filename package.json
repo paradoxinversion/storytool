@@ -1,0 +1,23 @@
+{
+  "name": "storytool",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/paradoxinversion/storytool.git",
+  "author": "Jedai Saboteur <dev@paradoxinversion.com>",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.1",
+    "next": "^9.1.6",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "store": "^2.0.12",
+    "unstated": "^2.1.1",
+    "unstated-connect": "^0.0.3",
+    "unstated-next": "^1.1.0"
+  },
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  }
+}
