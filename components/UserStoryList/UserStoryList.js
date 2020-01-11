@@ -34,6 +34,7 @@ class UserStoryList extends Component {
               <button>Go to</button>
             </Link> */}
             <button
+              className="border-0 p-2 rounded main-dark-bg main-light"
               onClick={() => {
                 return Router.push(
                   "/story/[storyId]",

@@ -27,22 +27,31 @@ class StoryPartDisplay extends React.Component {
         {storyAssets => (
           <React.Fragment>
             <div>
-              <button onClick={() => storyAssets.setEditState(true)}>
-                edit
-              </button>
-              <button>delete</button>
-              <h1>{this.props.storyPart.title}</h1>
-              <p>{this.props.storyPart.text}</p>
-              <Link href={`/story/${this.props.storyPart.story}`}>
-                <a>To story</a>
-              </Link>
-            </div>
-
-            <div>
-              <p>Characters in this part</p>
-              {this.state.storyCharacters.map(storyCharacter => (
-                <div>{storyCharacter.name}</div>
-              ))}
+              <div>
+                <Link href={`/story/${this.props.storyPart.story}`}>
+                  <a className="mr-1 inline-block border-0 p-2 rounded main-dark-bg main-light">
+                    To story
+                  </a>
+                </Link>
+                <button
+                  className="mr-1 border-0 p-2 rounded main-dark-bg main-light"
+                  onClick={() => storyAssets.setEditState(true)}>
+                  edit
+                </button>
+                <button className="border-0 p-2 rounded main-dark-bg main-light">
+                  delete
+                </button>
+              </div>
+              <div>
+                <p>Characters in this part</p>
+                {this.state.storyCharacters.map(storyCharacter => (
+                  <div>{storyCharacter.name}</div>
+                ))}
+              </div>
+              <div>
+                <h1>{this.props.storyPart.title}</h1>
+                <p>{this.props.storyPart.text}</p>
+              </div>
             </div>
           </React.Fragment>
         )}

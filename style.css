@@ -1,0 +1,12 @@
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+.main-dark-bg {
+  background-color: #5c4742;
+}
+.main-light {
+  color: #c4bbaf;
+}

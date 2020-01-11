@@ -18,7 +18,9 @@ class Dashboard extends Component {
             <p>Welcome to the Dashboard!</p>
             <div>
               {/* General Commands */}
-              <button>New Story</button>
+              <button className="border-0 p-2 rounded main-dark-bg main-light">
+                New Story
+              </button>
             </div>
             <div>
               <h2>Your Stories</h2>

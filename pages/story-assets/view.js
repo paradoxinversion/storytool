@@ -4,6 +4,7 @@ import {
   fetchStoryCharacter,
   fetchStoryPart
 } from "../../utilityFunctions/actions";
+import CommonLayout from "../../components/CommonLayout/CommonLayout";
 const fetchFunctions = {
   0: fetchStoryPart,
   1: fetchStoryCharacter
@@ -18,10 +19,12 @@ const fetchFunctions = {
 function StoryAsset(props) {
   const assetType = props.router.query.type;
   return (
-    <StoryAssetHandler
-      assetType={parseInt(assetType)}
-      assetFetchFn={fetchFunctions[assetType]}
-    />
+    <CommonLayout>
+      <StoryAssetHandler
+        assetType={parseInt(assetType)}
+        assetFetchFn={fetchFunctions[assetType]}
+      />
+    </CommonLayout>
   );
 }
 

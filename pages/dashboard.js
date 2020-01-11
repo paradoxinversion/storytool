@@ -6,6 +6,7 @@ import Dashboard from "../components/Dashboard/Dashboard";
 import StoryAssetContainer from "../containers/StoryAssetContainer";
 import UserStoryList from "../components/UserStoryList/UserStoryList";
 import UserContainer from "../containers/UserContainer";
+import CommonLayout from "../components/CommonLayout/CommonLayout";
 
 /**
  * The Dashboard is the user's control panel.
@@ -16,24 +17,28 @@ import UserContainer from "../containers/UserContainer";
 class UserDashboard extends Component {
   render() {
     return (
-      <Subscribe to={[UserContainer, StoryAssetContainer]}>
-        {(user, storyAssets) => (
-          <div id="dashboard">
-            <p>Welcome to the Dashboard!</p>
-            <div>
-              {/* General Commands */}
-              <button>New Story</button>
+      <CommonLayout>
+        <Subscribe to={[UserContainer, StoryAssetContainer]}>
+          {(user, storyAssets) => (
+            <div id="dashboard">
+              <p>Welcome to the Dashboard!</p>
+              <div>
+                {/* General Commands */}
+                <button className="border-0 p-2 rounded main-dark-bg main-light">
+                  New Story
+                </button>
+              </div>
+              <div>
+                <h2>Your Stories</h2>
+                <UserStoryList
+                  authenticatedUser={user.getUser()}
+                  storyAssets={storyAssets}
+                />
+              </div>
             </div>
-            <div>
-              <h2>Your Stories</h2>
-              <UserStoryList
-                authenticatedUser={user.getUser()}
-                storyAssets={storyAssets}
-              />
-            </div>
-          </div>
-        )}
-      </Subscribe>
+          )}
+        </Subscribe>
+      </CommonLayout>
     );
   }
 }

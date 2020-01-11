@@ -18,11 +18,19 @@ function StoryCharacterDisplay(props) {
           <p>{props.storyCharacter.description}</p>
           {props.storyCharacter.stories.map(story => (
             <Link href={`/story/${story}`}>
-              <a>To story {story}</a>
+              <a className="mr-1 inline-block border-0 p-2 rounded main-dark-bg main-light">
+                To story {story}
+              </a>
             </Link>
           ))}
-          <button onClick={() => storyAssets.setEditState(true)}>edit</button>
-          <button>delete</button>
+          <button
+            className=" mr-1 border-0 p-2 rounded main-dark-bg main-light"
+            onClick={() => storyAssets.setEditState(true)}>
+            edit
+          </button>
+          <button className="border-0 p-2 rounded main-dark-bg main-light">
+            delete
+          </button>
         </div>
       )}
     </Subscribe>
