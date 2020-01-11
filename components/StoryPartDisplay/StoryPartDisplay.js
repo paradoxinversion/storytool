@@ -43,13 +43,18 @@ class StoryPartDisplay extends React.Component {
                 </button>
               </div>
               <div>
-                <p>Characters in this part</p>
+                <p className="font-bold text-lg">Characters in this part</p>
                 {this.state.storyCharacters.map(storyCharacter => (
                   <div>{storyCharacter.name}</div>
                 ))}
+                <button className="border-0 p-2 rounded main-dark-bg main-light">
+                  Add a Character
+                </button>
               </div>
               <div>
-                <h1>{this.props.storyPart.title}</h1>
+                <h1 className="text-lg font-bold">
+                  Title: {this.props.storyPart.title}
+                </h1>
                 <p>{this.props.storyPart.text}</p>
               </div>
             </div>

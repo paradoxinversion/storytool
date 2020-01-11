@@ -27,5 +27,8 @@ function StoryAsset(props) {
     </CommonLayout>
   );
 }
-
+// ! Prevent static optimization here or props will not pass correctly
+StoryAsset.getInitialProps = () => {
+  return {};
+};
 export default withRouter(StoryAsset);

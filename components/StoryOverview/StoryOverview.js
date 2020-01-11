@@ -35,7 +35,7 @@ class StoryOverview extends React.Component {
           </button>
         </div>
         <div className="mt-4">
-          <h2>Your Story Parts</h2>
+          <h2 className="font-bold text-lg">Your Story Parts</h2>
 
           {this.state.storyParts.map(storyPart => {
             return (
@@ -59,7 +59,7 @@ class StoryOverview extends React.Component {
           })}
         </div>
         <div className="mt-4">
-          <h2>Your Story Characters</h2>
+          <h2 className="font-bold text-lg">Your Story Characters</h2>
           {/* example markup */}
           {this.state.storyCharacters.map(storyCharacter => {
             return (
