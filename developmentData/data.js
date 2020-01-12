@@ -148,6 +148,11 @@ const characters = [
     name: "Claire",
     description: "A human with red hair",
     storyAssetType: 1,
+    characterRelations: {
+      dc: {
+        description: "Claire's younger brother."
+      }
+    },
     defaultFields: [
       {
         name: "name",

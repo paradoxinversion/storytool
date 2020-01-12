@@ -19,6 +19,14 @@ function Home() {
               {" "}
               Log In
             </button>
+            <button
+              className="border-0 p-2 rounded main-dark-bg main-light"
+              onClick={async () => {
+                return Router.push("/signup");
+              }}>
+              {" "}
+              Sign Up
+            </button>
             <p>Welcome to Storytool!</p>
             {/* Fake autosign in for now */}
             {user.user ? <p>Welcome Back!</p> : <p>Sign up or Sign in!</p>}
