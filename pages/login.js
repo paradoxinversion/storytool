@@ -3,23 +3,11 @@ import { gql } from "apollo-boost";
 import { useMutation } from "@apollo/react-hooks";
 import { withApollo } from "../config/apollo";
 import { useState } from "react";
-const SIGN_UP_USER = gql`
-  mutation createUser($username: String!, $password: String!) {
-    createUser(username: $username, password: $password) {
-      username
-    }
-  }
-`;
+import axios from "axios";
+import Router from "next/router";
 
-function SignUp() {
-  // const [username, setUsername] = useState("");
+function LogIn() {
   const [formData, setFormData] = useState({ username: "", password: "" });
-  const handleFormChange = e =>
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  const [signUpUser, { data }] = useMutation(SIGN_UP_USER);
   return (
     <CommonLayout>
       <p>Welcome to Storytool!</p>
@@ -60,19 +48,25 @@ function SignUp() {
             // send a gql call with this data
             // display fail or success
             e.preventDefault();
-            debugger;
-            const signUpResponse = await signUpUser({
-              variables: formData
-            });
-            debugger;
-            // return Router.push("/dashboard");
+            // REST for now
+            try {
+              const signupResponse = await axios.post(
+                "http://localhost:3001/api/v1/login",
+                formData,
+                { withCredentials: true }
+              );
+              return Router.push("/dashboard");
+            } catch (error) {
+              debugger;
+              console.log(error);
+            }
           }}>
           {" "}
-          Sign Up
+          Log In
         </button>
       </form>
     </CommonLayout>
   );
 }
 
-export default withApollo(SignUp);
+export default withApollo(LogIn);
