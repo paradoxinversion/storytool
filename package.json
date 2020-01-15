@@ -25,6 +25,10 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "test": "NODE_ENV=test jest"
+  },
+  "devDependencies": {
+    "jest": "^24.9.0"
   }
 }

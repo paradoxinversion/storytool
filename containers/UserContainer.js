@@ -16,7 +16,6 @@ export default class UserContainer extends Container {
    * @param {*} user
    */
   async setUser(user) {
-    console.log(user);
     store.set(appConfig.storeUserIdString, user.id);
     await this.setState({
       user: {

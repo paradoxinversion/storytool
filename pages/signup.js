@@ -29,7 +29,6 @@ function SignUp() {
           <input
             name="username"
             onChange={e => {
-              // handleFormChange(e.target.value);
               setFormData({
                 ...formData,
                 [e.target.name]: e.target.value
@@ -45,7 +44,6 @@ function SignUp() {
             type="password"
             name="password"
             onChange={e => {
-              // handleFormChange(e.target.value);
               setFormData({
                 ...formData,
                 [e.target.name]: e.target.value
@@ -60,11 +58,9 @@ function SignUp() {
             // send a gql call with this data
             // display fail or success
             e.preventDefault();
-            debugger;
             const signUpResponse = await signUpUser({
               variables: formData
             });
-            debugger;
             // return Router.push("/dashboard");
           }}>
           {" "}

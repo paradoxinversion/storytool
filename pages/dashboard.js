@@ -7,6 +7,8 @@ import StoryAssetContainer from "../containers/StoryAssetContainer";
 import UserStoryList from "../components/UserStoryList/UserStoryList";
 import UserContainer from "../containers/UserContainer";
 import CommonLayout from "../components/CommonLayout/CommonLayout";
+import { withApollo } from "../config/apollo";
+import StoryCreate from "../components/StoryCreate/StoryCreate";
 
 /**
  * The Dashboard is the user's control panel.
@@ -27,6 +29,7 @@ class UserDashboard extends Component {
                 <button className="border-0 p-2 rounded main-dark-bg main-light">
                   New Story
                 </button>
+                <StoryCreate />
               </div>
               <div>
                 <h2>Your Stories</h2>
@@ -42,4 +45,5 @@ class UserDashboard extends Component {
     );
   }
 }
-export default UserDashboard;
+
+export default withApollo(UserDashboard, { ssr: false });

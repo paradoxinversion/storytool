@@ -13,8 +13,9 @@ function Home() {
             <button
               className="border-0 p-2 rounded main-dark-bg main-light"
               onClick={async () => {
-                await user.setUser(await getTestUser());
-                return Router.push("/dashboard");
+                // await user.setUser(await getTestUser());
+                // return Router.push("/dashboard");
+                return Router.push("/login");
               }}>
               {" "}
               Log In
