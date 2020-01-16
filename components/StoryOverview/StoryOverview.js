@@ -4,6 +4,9 @@ import {
   fetchStoryParts,
   fetchAllStoryCharacters
 } from "../../utilityFunctions/actions";
+import StoryPartList from "../StoryPartList/StoryPartList";
+import { withApollo } from "../../config/apollo";
+import StoryPartCreate from "../StoryPartCreate/StoryPartCreate";
 
 /**
  * The main page for a story. On it are the asets related to the story:
@@ -33,10 +36,11 @@ class StoryOverview extends React.Component {
             disabled>
             New Part
           </button>
+          <StoryPartCreate storyId={this.props.storyId} />
         </div>
         <div className="mt-4">
           <h2 className="font-bold text-lg">Your Story Parts</h2>
-
+          <StoryPartList storyId={this.props.storyId} />
           {this.state.storyParts.map(storyPart => {
             return (
               <div key={storyPart.id}>
@@ -90,4 +94,4 @@ class StoryOverview extends React.Component {
 //   const parts = storyParts.filter(part => part.story === query.id);
 //   return { storyParts: parts };
 // };
-export default StoryOverview;
+export default withApollo(StoryOverview);

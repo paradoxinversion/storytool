@@ -43,6 +43,7 @@ describe("generalUtilities", () => {
     const flattenedData = flattenObjectValues(testData.data.userStories[0]);
     expect(flattenedData.title).toEqual("Story 1");
   });
+
   test("flattenObjectsValues", () => {
     const flattenedData = flattenObjectsValues(testData.data.userStories);
     expect(flattenedData[0].title).toEqual("Story 1");

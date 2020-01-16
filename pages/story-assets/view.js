@@ -1,4 +1,5 @@
 import { withRouter } from "next/router";
+import { withApollo } from "../../config/apollo";
 import StoryAssetHandler from "../../components/StoryAssetHandler/StoryAssetHandler";
 import {
   fetchStoryCharacter,
@@ -20,10 +21,7 @@ function StoryAsset(props) {
   const assetType = props.router.query.type;
   return (
     <CommonLayout>
-      <StoryAssetHandler
-        assetType={parseInt(assetType)}
-        assetFetchFn={fetchFunctions[assetType]}
-      />
+      <StoryAssetHandler assetType={parseInt(assetType)} />
     </CommonLayout>
   );
 }
@@ -31,4 +29,4 @@ function StoryAsset(props) {
 StoryAsset.getInitialProps = () => {
   return {};
 };
-export default withRouter(StoryAsset);
+export default withRouter(withApollo(StoryAsset));

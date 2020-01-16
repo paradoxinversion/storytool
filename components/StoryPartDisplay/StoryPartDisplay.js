@@ -16,10 +16,7 @@ class StoryPartDisplay extends React.Component {
   };
 
   async componentDidMount() {
-    const storyCharacters = await fetchStoryCharacters(
-      this.props.storyPart.characters
-    );
-    this.setState({ storyCharacters });
+    console.log(this.props.storyAsset);
   }
   render() {
     return (

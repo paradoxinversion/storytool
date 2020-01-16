@@ -1,15 +1,9 @@
 import React, { Component } from "react";
-import { Subscribe } from "unstated";
-import UserContainer from "../../containers/UserContainer";
-import { fetchStories } from "../../utilityFunctions/actions";
-import Link from "next/link";
 import Router from "next/router";
 import store from "store";
-import appConfig from "../../config/appConfig";
 import { useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
-import { withApollo } from "../../config/apollo";
 import { flattenObjectsValues } from "../../utilityFunctions/generalUtilities";
 
 /**

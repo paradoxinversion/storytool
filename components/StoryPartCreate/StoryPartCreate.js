@@ -1,19 +1,24 @@
 import { useState } from "react";
-import { useMutation } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
+import { useMutation } from "@apollo/react-hooks";
 import { withApollo } from "../../config/apollo";
 import store from "store";
-const CREATE_STORY = gql`
-  mutation createStory($token: String!, $title: String!, $synopsis: String) {
-    createStory(token: $token, title: $title, synopsis: $synopsis) {
-      owner
+const CREATE_STORY_PART = gql`
+  mutation createStoryPart(
+    $token: String!
+    $story: String!
+    $title: String!
+    $text: String
+  ) {
+    createStoryPart(token: $token, story: $story, title: $title, text: $text) {
+      id
     }
   }
 `;
 
-function StoryCreate() {
-  const [formData, setFormData] = useState({ title: "", synopsis: "" });
-  const [createStory, { data }] = useMutation(CREATE_STORY);
+function StoryPartCreate(props) {
+  const [formData, setFormData] = useState({ title: "", text: "" });
+  const [createStoryPart, { data }] = useMutation(CREATE_STORY_PART);
   return (
     <form>
       <input
@@ -22,6 +27,7 @@ function StoryCreate() {
         className="border"
         placeholder="Title"
         onChange={e => {
+          // handleFormChange(e.target.value);
           setFormData({
             ...formData,
             [e.target.name]: e.target.value
@@ -29,9 +35,9 @@ function StoryCreate() {
         }}
       />
       <textarea
-        name="synopsis"
+        name="text"
         className="border"
-        placeholder="synopsis"
+        placeholder="What happens now?"
         onChange={e => {
           setFormData({
             ...formData,
@@ -44,8 +50,8 @@ function StoryCreate() {
         className="border-0 p-2 rounded main-dark-bg main-light"
         onClick={async e => {
           e.preventDefault();
-          const createStoryResponse = await createStory({
-            variables: formData
+          const createStoryResponse = await createStoryPart({
+            variables: { ...formData, story: props.storyId }
           });
         }}>
         {" "}
@@ -55,4 +61,4 @@ function StoryCreate() {
   );
 }
 
-export default StoryCreate;
+export default StoryPartCreate;
