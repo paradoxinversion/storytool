@@ -1,42 +1,37 @@
-import Link from "next/link";
 import React from "react";
-import {
-  fetchStoryParts,
-  fetchAllStoryCharacters
-} from "../../utilityFunctions/actions";
 import StoryPartList from "../StoryPartList/StoryPartList";
 import { withApollo } from "../../config/apollo";
 import StoryPartCreate from "../StoryPartCreate/StoryPartCreate";
+import { Subscribe } from "unstated";
+import StoryAssetContainer from "../../containers/StoryAssetContainer";
 
 /**
  * The main page for a story. On it are the asets related to the story:
  * Parts, People, Locations, and Objects.
  */
 
-class StoryOverview extends React.Component {
-  state = {
-    storyParts: [],
-    storyCharacters: []
-  };
-
-  render() {
-    return (
-      <div>
-        <p>Welcome to the Story!</p>
+function StoryOverview(props) {
+  return (
+    <Subscribe to={[StoryAssetContainer]}>
+      {storyAssets => (
         <div>
-          {/* General Commands */}
-          <button
-            className="border-0 p-2 rounded main-dark-bg main-light"
-            disabled>
-            New Part
-          </button>
-          <StoryPartCreate storyId={this.props.storyId} />
-        </div>
-        <div className="mt-4 border p-2">
-          <h2 className="font-bold text-lg">Your Story Parts</h2>
-          <StoryPartList storyId={this.props.storyId} />
-        </div>
-        {/* <div className="mt-4">
+          <p>Welcome to the Story!</p>
+          <div>
+            {/* General Commands */}
+            <button
+              className="border-0 p-2 rounded main-dark-bg main-light"
+              onClick={() => storyAssets.setAssetCreateState(true)}>
+              New Part
+            </button>
+            {storyAssets.state.creatingAsset && (
+              <StoryPartCreate storyId={props.storyId} />
+            )}
+          </div>
+          <div className="mt-4 border p-2">
+            <h2 className="font-bold text-lg">Your Story Parts</h2>
+            <StoryPartList storyId={props.storyId} />
+          </div>
+          {/* <div className="mt-4">
           <h2 className="font-bold text-lg">Your Story Characters</h2>
         
           {this.state.storyCharacters.map(storyCharacter => {
@@ -60,12 +55,10 @@ class StoryOverview extends React.Component {
             );
           })}
         </div> */}
-      </div>
-    );
-  }
+        </div>
+      )}
+    </Subscribe>
+  );
 }
-// Story.getInitialProps = async ({ query }) => {
-//   const parts = storyParts.filter(part => part.story === query.id);
-//   return { storyParts: parts };
-// };
+
 export default withApollo(StoryOverview);

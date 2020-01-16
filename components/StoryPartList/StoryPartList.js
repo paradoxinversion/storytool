@@ -44,7 +44,7 @@ function StoryPartList(props) {
   return data.storyParts.length > 0 ? (
     flattenObjectsValues(data.storyParts).map((storyPart, i, a) => {
       return (
-        <div className="border p-2" key={storyPart.id}>
+        <div className="bg-gray-100 border p-2 mb-4" key={storyPart.id}>
           <header>
             {/* <span>Part {storyPart.order + 1} </span> */}
             <p>{storyPart.title} </p>

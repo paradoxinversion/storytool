@@ -7,11 +7,16 @@ import { Container } from "unstated";
 
 export default class StoryAssetContainer extends Container {
   state = {
-    editingAsset: false
+    editingAsset: false,
+    creatingAsset: false
   };
 
   setEditState(editState) {
     this.setState({ editingAsset: editState });
+  }
+
+  setAssetCreateState(createState) {
+    this.setState({ creatingAsset: createState });
   }
 }
 

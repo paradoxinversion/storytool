@@ -4,14 +4,18 @@ import { useState } from "react";
 import axios from "axios";
 import Router from "next/router";
 import store from "store";
+import Link from "next/link";
 function LogIn() {
   const [formData, setFormData] = useState({ username: "", password: "" });
   return (
     <CommonLayout>
-      <p>Welcome to Storytool!</p>
-      <form className="flex flex-col items-center">
+      <p className="text-center mb-8">
+        To access the Storytool Dashboard, please log in below.
+      </p>
+      <form className="bg-gray-100 rounded flex flex-col items-center border py-6 max-w-sm ml-auto mr-auto">
         <label htmlFor="username">Username</label>
         <input
+          className="border"
           name="username"
           onChange={e => {
             // handleFormChange(e.target.value);
@@ -25,6 +29,7 @@ function LogIn() {
         />
         <label htmlFor="password">Password</label>
         <input
+          className="border"
           type="password"
           name="password"
           onChange={e => {
@@ -37,7 +42,7 @@ function LogIn() {
           value={formData["password"]}
         />
         <button
-          className="border-0 p-2 rounded main-dark-bg main-light m-4"
+          className="border-0 p-2 mt-4 rounded main-dark-bg main-light"
           onClick={async e => {
             // send a gql call with this data
             // display fail or success
@@ -60,6 +65,11 @@ function LogIn() {
           Log In
         </button>
       </form>
+      <Link href="/signup">
+        <a className="block text-sm text-center italic underline text-gray-600 mt-4">
+          Did you mean to sign up?
+        </a>
+      </Link>
     </CommonLayout>
   );
 }
