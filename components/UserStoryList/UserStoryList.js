@@ -3,6 +3,8 @@ import Router from "next/router";
 import store from "store";
 import { useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/react-hooks";
+
 import gql from "graphql-tag";
 import { flattenObjectsValues } from "../../utilityFunctions/generalUtilities";
 
@@ -22,22 +24,29 @@ const GET_USER_STORIES = gql`
     }
   }
 `;
+
+const DELETE_STORY = gql`
+  mutation deleteStory($token: String!, $storyId: String!) {
+    deleteStory(token: $token, storyId: $storyId) {
+      id
+    }
+  }
+`;
 function UserStoryList() {
   const [state, setState] = useState({ userStories: [] });
   const { loading, error, data } = useQuery(GET_USER_STORIES, {
     variables: { token: store.get("storytool_id") }
   });
+  const [deleteStory, { data: mutationData }] = useMutation(DELETE_STORY);
   if (loading) return "Loading...";
   if (error) return `Error! ${error.message}`;
   return data.userStories.length > 0 ? (
-    // flattenObjectValues(data.userStories).map((userStory, i, a) => {
     flattenObjectsValues(data.userStories).map((userStory, i, a) => {
-      if (!userStory) return <p>Maybe loading</p>;
       return (
-        <div>
+        <div className="border p-2 my-2">
           <p>{userStory.defaultFields[0].value || "loading"}</p>
           <button
-            className="border-0 p-2 rounded main-dark-bg main-light"
+            className="border-0 p-2 rounded main-dark-bg main-light mr-2"
             onClick={() => {
               return Router.push(
                 "/story/[storyId]",
@@ -45,6 +54,18 @@ function UserStoryList() {
               );
             }}>
             Go To
+          </button>
+          <button
+            className="border-0 p-2 rounded main-dark-bg main-light"
+            onClick={e => {
+              deleteStory({
+                variables: {
+                  token: store.get("storytool_id"),
+                  storyId: userStory.id
+                }
+              });
+            }}>
+            Delete
           </button>
         </div>
       );

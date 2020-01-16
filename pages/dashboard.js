@@ -31,7 +31,7 @@ class UserDashboard extends Component {
                 </button>
                 <StoryCreate />
               </div>
-              <div>
+              <div className="border p-2">
                 <h2>Your Stories</h2>
                 <UserStoryList
                   authenticatedUser={user.getUser()}

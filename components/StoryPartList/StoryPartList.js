@@ -32,6 +32,7 @@ const DELETE_STORY_PART = gql`
   }
 `;
 function StoryPartList(props) {
+  // TODO: Consider aliasing all destructured GQL data
   const { loading, error, data } = useQuery(GET_STORY_PARTS, {
     variables: { token: store.get("storytool_id"), storyId: props.storyId }
   });
@@ -42,11 +43,13 @@ function StoryPartList(props) {
   if (error) return `Error! ${error.message}`;
   return data.storyParts.length > 0 ? (
     flattenObjectsValues(data.storyParts).map((storyPart, i, a) => {
-      if (!storyPart) return <p>Maybe loading</p>;
       return (
-        <div key={storyPart.id}>
-          <span>Part {storyPart.order + 1}</span>
-          <span> {storyPart.title}</span>
+        <div className="border p-2" key={storyPart.id}>
+          <header>
+            {/* <span>Part {storyPart.order + 1} </span> */}
+            <p>{storyPart.title} </p>
+            <span className="text-xs">id: {storyPart.id} </span>
+          </header>
           <div>
             <Link href={`/story-assets/view?type=0&id=${storyPart.id}`}>
               <a className="inline-block mr-1 border-0 p-2 rounded main-dark-bg main-light">
@@ -63,7 +66,7 @@ function StoryPartList(props) {
                   }
                 });
               }}>
-              delete
+              Delete
             </button>
           </div>
         </div>

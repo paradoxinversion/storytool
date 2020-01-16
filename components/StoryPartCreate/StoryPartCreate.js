@@ -20,11 +20,11 @@ function StoryPartCreate(props) {
   const [formData, setFormData] = useState({ title: "", text: "" });
   const [createStoryPart, { data }] = useMutation(CREATE_STORY_PART);
   return (
-    <form>
+    <form className="flex flex-col my-4 md:w-1/2">
       <input
         name="title"
         type="text"
-        className="border"
+        className="border mb-4"
         placeholder="Title"
         onChange={e => {
           // handleFormChange(e.target.value);
@@ -36,7 +36,7 @@ function StoryPartCreate(props) {
       />
       <textarea
         name="text"
-        className="border"
+        className="border mb-4 resize-none"
         placeholder="What happens now?"
         onChange={e => {
           setFormData({

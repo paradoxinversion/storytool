@@ -9,39 +9,35 @@ function LogIn() {
   return (
     <CommonLayout>
       <p>Welcome to Storytool!</p>
-      <form className="flex flex-col">
-        <label>
-          Username
-          <input
-            name="username"
-            onChange={e => {
-              // handleFormChange(e.target.value);
-              setFormData({
-                ...formData,
-                [e.target.name]: e.target.value
-              });
-            }}
-            type="text"
-            value={formData["username"]}
-          />
-        </label>
-        <label>
-          Password
-          <input
-            type="password"
-            name="password"
-            onChange={e => {
-              // handleFormChange(e.target.value);
-              setFormData({
-                ...formData,
-                [e.target.name]: e.target.value
-              });
-            }}
-            value={formData["password"]}
-          />
-        </label>
+      <form className="flex flex-col items-center">
+        <label htmlFor="username">Username</label>
+        <input
+          name="username"
+          onChange={e => {
+            // handleFormChange(e.target.value);
+            setFormData({
+              ...formData,
+              [e.target.name]: e.target.value
+            });
+          }}
+          type="text"
+          value={formData["username"]}
+        />
+        <label htmlFor="password">Password</label>
+        <input
+          type="password"
+          name="password"
+          onChange={e => {
+            // handleFormChange(e.target.value);
+            setFormData({
+              ...formData,
+              [e.target.name]: e.target.value
+            });
+          }}
+          value={formData["password"]}
+        />
         <button
-          className="border-0 p-2 rounded main-dark-bg main-light"
+          className="border-0 p-2 rounded main-dark-bg main-light m-4"
           onClick={async e => {
             // send a gql call with this data
             // display fail or success

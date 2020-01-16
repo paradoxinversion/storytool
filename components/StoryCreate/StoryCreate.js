@@ -15,11 +15,11 @@ function StoryCreate() {
   const [formData, setFormData] = useState({ title: "", synopsis: "" });
   const [createStory, { data }] = useMutation(CREATE_STORY);
   return (
-    <form>
+    <form className="flex flex-col my-4 md:w-1/2">
       <input
         name="title"
         type="text"
-        className="border"
+        className="border mb-4"
         placeholder="Title"
         onChange={e => {
           setFormData({
@@ -30,8 +30,8 @@ function StoryCreate() {
       />
       <textarea
         name="synopsis"
-        className="border"
-        placeholder="synopsis"
+        className="border mb-4 resize-none"
+        placeholder="Synopsis"
         onChange={e => {
           setFormData({
             ...formData,

@@ -19,12 +19,6 @@ class StoryOverview extends React.Component {
     storyCharacters: []
   };
 
-  async componentDidMount() {
-    const storyParts = await fetchStoryParts(this.props.storyId);
-    const storyCharacters = await fetchAllStoryCharacters(this.props.storyId);
-    this.setState({ storyParts, storyCharacters });
-  }
-
   render() {
     return (
       <div>
@@ -38,33 +32,13 @@ class StoryOverview extends React.Component {
           </button>
           <StoryPartCreate storyId={this.props.storyId} />
         </div>
-        <div className="mt-4">
+        <div className="mt-4 border p-2">
           <h2 className="font-bold text-lg">Your Story Parts</h2>
           <StoryPartList storyId={this.props.storyId} />
-          {this.state.storyParts.map(storyPart => {
-            return (
-              <div key={storyPart.id}>
-                <span>Part {storyPart.order + 1}</span>
-                <span> {storyPart.title}</span>
-                <div>
-                  <Link href={`/story-assets/view?type=0&id=${storyPart.id}`}>
-                    <a className="inline-block mr-1 border-0 p-2 rounded main-dark-bg main-light">
-                      Go to
-                    </a>
-                  </Link>
-                  <button
-                    className="border-0 p-2 rounded main-dark-bg main-light"
-                    disabled>
-                    delete
-                  </button>
-                </div>
-              </div>
-            );
-          })}
         </div>
-        <div className="mt-4">
+        {/* <div className="mt-4">
           <h2 className="font-bold text-lg">Your Story Characters</h2>
-          {/* example markup */}
+        
           {this.state.storyCharacters.map(storyCharacter => {
             return (
               <div key={storyCharacter.id}>
@@ -79,13 +53,13 @@ class StoryOverview extends React.Component {
                   <button
                     className="border-0 p-2 rounded main-dark-bg main-light"
                     disabled>
-                    delete
+                    Delete
                   </button>
                 </div>
               </div>
             );
           })}
-        </div>
+        </div> */}
       </div>
     );
   }
