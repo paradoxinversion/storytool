@@ -3,6 +3,7 @@ import Router from "next/router";
 import store from "store";
 import { useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import { flattenObjectsValues } from "../../utilityFunctions/generalUtilities";
 import Link from "next/link";
@@ -22,29 +23,27 @@ const GET_STORY_PARTS = gql`
     }
   }
 `;
+
+const DELETE_STORY_PART = gql`
+  mutation deleteStoryPart($token: String!, $storyPartId: String!) {
+    deleteStoryPart(token: $token, storyPartId: $storyPartId) {
+      id
+    }
+  }
+`;
 function StoryPartList(props) {
   const { loading, error, data } = useQuery(GET_STORY_PARTS, {
     variables: { token: store.get("storytool_id"), storyId: props.storyId }
   });
+  const [deleteStoryPart, { data: mutationData }] = useMutation(
+    DELETE_STORY_PART
+  );
   if (loading) return "Loading...";
   if (error) return `Error! ${error.message}`;
   return data.storyParts.length > 0 ? (
     flattenObjectsValues(data.storyParts).map((storyPart, i, a) => {
       if (!storyPart) return <p>Maybe loading</p>;
       return (
-        // <div>
-        //   <p>{storyParts.defaultFields[0].value || "loading"}</p>
-        //   <button
-        //     className="border-0 p-2 rounded main-dark-bg main-light"
-        //     onClick={() => {
-        //       return Router.push(
-        //         "/story/[storyId]",
-        //         `/story/${storyParts.id || "loading"}`
-        //       );
-        //     }}>
-        //     Go To
-        //   </button>
-        // </div>
         <div key={storyPart.id}>
           <span>Part {storyPart.order + 1}</span>
           <span> {storyPart.title}</span>
@@ -56,7 +55,14 @@ function StoryPartList(props) {
             </Link>
             <button
               className="border-0 p-2 rounded main-dark-bg main-light"
-              disabled>
+              onClick={e => {
+                deleteStoryPart({
+                  variables: {
+                    token: store.get("storytool_id"),
+                    storyPartId: storyPart.id
+                  }
+                });
+              }}>
               delete
             </button>
           </div>

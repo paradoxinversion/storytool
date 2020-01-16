@@ -55,7 +55,7 @@ function StoryPartCreate(props) {
           });
         }}>
         {" "}
-        Log In
+        Create Story Part
       </button>
     </form>
   );

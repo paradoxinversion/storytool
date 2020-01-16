@@ -49,7 +49,7 @@ function StoryCreate() {
           });
         }}>
         {" "}
-        Log In
+        Create Story
       </button>
     </form>
   );
