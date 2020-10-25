@@ -29,6 +29,7 @@
     "test": "NODE_ENV=test jest"
   },
   "devDependencies": {
+    "@babel/plugin-transform-react-jsx": "^7.12.1",
     "jest": "^24.9.0"
   }
 }

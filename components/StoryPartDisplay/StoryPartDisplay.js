@@ -1,7 +1,8 @@
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { Subscribe } from "unstated";
 import StoryAssetContainer from "../../containers/StoryAssetContainer";
+import StoryAssets from "../../hooks/useStoryAssets";
 import { fetchStoryCharacters } from "../../utilityFunctions/actions";
 
 /**
@@ -10,29 +11,24 @@ import { fetchStoryCharacters } from "../../utilityFunctions/actions";
  * @param {*} props
  */
 
-class StoryPartDisplay extends React.Component {
-  state = {
-    storyCharacters: []
-  };
+function StoryPartDisplay (props) {
 
-  async componentDidMount() {
-    console.log(this.props.storyAsset);
-  }
-  render() {
+
+  const [storyCharacters, setStoryCharacters] = useState([])
+    const StoryAssetData = StoryAssets.useContainer();
     return (
-      <Subscribe to={[StoryAssetContainer]}>
-        {storyAssets => (
+  
           <React.Fragment>
             <div>
               <div>
-                <Link href={`/story/${this.props.storyPart.story}`}>
+                <Link href={`/story/${props.storyPart.story}`}>
                   <a className="mr-1 inline-block border-0 p-2 rounded main-dark-bg main-light">
                     To story
                   </a>
                 </Link>
                 <button
                   className="mr-1 border-0 p-2 rounded main-dark-bg main-light"
-                  onClick={() => storyAssets.setEditState(true)}>
+                  onClick={() => StoryAssetData.setAssetEdit(true)}>
                   edit
                 </button>
                 <button className="border-0 p-2 rounded main-dark-bg main-light">
@@ -41,7 +37,7 @@ class StoryPartDisplay extends React.Component {
               </div>
               <div>
                 <p className="font-bold text-lg">Characters in this part</p>
-                {this.state.storyCharacters.map(storyCharacter => (
+                {storyCharacters.map(storyCharacter => (
                   <div>{storyCharacter.name}</div>
                 ))}
                 <button className="border-0 p-2 rounded main-dark-bg main-light">
@@ -50,16 +46,15 @@ class StoryPartDisplay extends React.Component {
               </div>
               <div>
                 <h1 className="text-lg font-bold">
-                  Title: {this.props.storyPart.title}
+                  Title: {props.storyPart.title}
                 </h1>
-                <p>{this.props.storyPart.text}</p>
+                <p>{props.storyPart.text}</p>
               </div>
             </div>
           </React.Fragment>
-        )}
-      </Subscribe>
+
     );
-  }
+
 }
 
 export default StoryPartDisplay;

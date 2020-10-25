@@ -7,6 +7,8 @@ import { userStore } from "../containers/UserContainer";
 
 import "../output.css";
 import "../style.css";
+import User from "../hooks/useUser";
+import StoryAssets from "../hooks/useStoryAssets";
 
 // const client = new ApolloClient({
 //   uri: "http://localhost:3001"
@@ -15,9 +17,11 @@ class MyApp extends App {
   render() {
     const { Component, pageProps } = this.props;
     return (
-      <Provider inject={[userStore]}>
-        <Component {...pageProps} />
-      </Provider>
+        <User.Provider>
+          <StoryAssets.Provider>
+            <Component {...pageProps} />
+          </StoryAssets.Provider>
+        </User.Provider>
     );
   }
 }

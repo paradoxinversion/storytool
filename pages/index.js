@@ -4,11 +4,11 @@ import UserContainer from "../containers/UserContainer";
 import Router from "next/router";
 import { getTestUser } from "../utilityFunctions/actions";
 import CommonLayout from "../components/CommonLayout/CommonLayout";
+import User from "../hooks/useUser";
 function Home() {
+  const UserData = User.useContainer();
   return (
     <CommonLayout>
-      <Subscribe to={[UserContainer]}>
-        {user => (
           <React.Fragment>
             <div className="mb-4 max-w-sm ml-auto mr-auto">
               <button
@@ -32,7 +32,7 @@ function Home() {
             </div>
             <p className="text-center">Welcome to Storytool!</p>
             {/* Fake autosign in for now */}
-            {user.user ? (
+            {UserData.user ? (
               <p>Welcome Back!</p>
             ) : (
               <p className="text-center">
@@ -40,8 +40,6 @@ function Home() {
               </p>
             )}
           </React.Fragment>
-        )}
-      </Subscribe>
     </CommonLayout>
   );
 }

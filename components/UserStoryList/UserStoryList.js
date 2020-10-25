@@ -17,10 +17,8 @@ const GET_USER_STORIES = gql`
   query getUserStories($token: String!) {
     userStories(token: $token) {
       id
-      defaultFields {
-        name
-        value
-      }
+      title
+      synopsis
     }
   }
 `;
@@ -41,10 +39,11 @@ function UserStoryList() {
   if (loading) return "Loading...";
   if (error) return `Error! ${error.message}`;
   return data.userStories.length > 0 ? (
-    flattenObjectsValues(data.userStories).map((userStory, i, a) => {
+    data.userStories.map((userStory, i, a) => {
       return (
         <div className="border p-2 my-2">
-          <p>{userStory.defaultFields[0].value || "loading"}</p>
+          <p>{userStory.title}</p>
+          <p>{userStory.synopsis}</p>
           <button
             className="border-0 p-2 rounded main-dark-bg main-light mr-2"
             onClick={() => {

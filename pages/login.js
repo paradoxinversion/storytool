@@ -5,7 +5,9 @@ import axios from "axios";
 import Router from "next/router";
 import store from "store";
 import Link from "next/link";
+import User from "../hooks/useUser";
 function LogIn() {
+  let UserData = User.useContainer();
   const [formData, setFormData] = useState({ username: "", password: "" });
   return (
     <CommonLayout>
@@ -54,7 +56,8 @@ function LogIn() {
                 formData,
                 { withCredentials: true }
               );
-
+              debugger;
+              UserData.setUserData({username: login.data.username, token: login.data.token})
               store.set("storytool_id", login.data.token);
               return Router.push("/dashboard");
             } catch (error) {

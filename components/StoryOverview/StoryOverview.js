@@ -4,6 +4,7 @@ import { withApollo } from "../../config/apollo";
 import StoryPartCreate from "../StoryPartCreate/StoryPartCreate";
 import { Subscribe } from "unstated";
 import StoryAssetContainer from "../../containers/StoryAssetContainer";
+import StoryAssets from "../../hooks/useStoryAssets";
 
 /**
  * The main page for a story. On it are the asets related to the story:
@@ -11,19 +12,19 @@ import StoryAssetContainer from "../../containers/StoryAssetContainer";
  */
 
 function StoryOverview(props) {
+  const StoryAssetData = StoryAssets.useContainer();
   return (
-    <Subscribe to={[StoryAssetContainer]}>
-      {storyAssets => (
+
         <div>
           <p>Welcome to the Story!</p>
           <div>
             {/* General Commands */}
             <button
               className="border-0 p-2 rounded main-dark-bg main-light"
-              onClick={() => storyAssets.setAssetCreateState(true)}>
+              onClick={() => StoryAssetData.setAssetCreate(true)}>
               New Part
             </button>
-            {storyAssets.state.creatingAsset && (
+            {StoryAssetData.createAsset && (
               <StoryPartCreate storyId={props.storyId} />
             )}
           </div>
@@ -56,8 +57,7 @@ function StoryOverview(props) {
           })}
         </div> */}
         </div>
-      )}
-    </Subscribe>
+
   );
 }
 

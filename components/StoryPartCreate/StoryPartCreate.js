@@ -1,10 +1,8 @@
 import { useState } from "react";
 import { gql } from "apollo-boost";
 import { useMutation } from "@apollo/react-hooks";
-import { withApollo } from "../../config/apollo";
 import store from "store";
-import { Subscribe } from "unstated";
-import StoryAssetContainer from "../../containers/StoryAssetContainer";
+import StoryAssets from "../../hooks/useStoryAssets";
 const CREATE_STORY_PART = gql`
   mutation createStoryPart(
     $token: String!
@@ -21,9 +19,9 @@ const CREATE_STORY_PART = gql`
 function StoryPartCreate(props) {
   const [formData, setFormData] = useState({ title: "", text: "" });
   const [createStoryPart, { data }] = useMutation(CREATE_STORY_PART);
+  const StoryAssetData = StoryAssets.useContainer();
   return (
-    <Subscribe to={[StoryAssetContainer]}>
-      {storyAssets => (
+
         <form className="flex flex-col my-4 md:w-1/2">
           <input
             name="title"
@@ -57,7 +55,7 @@ function StoryPartCreate(props) {
               const createStoryResponse = await createStoryPart({
                 variables: { ...formData, story: props.storyId }
               });
-              storyAssets.setAssetCreateState(false);
+              StoryAssetData.setAssetCreate(false);
             }}>
             {" "}
             Create Story Part
@@ -66,14 +64,13 @@ function StoryPartCreate(props) {
             className="border-0 p-2 rounded main-dark-bg main-light"
             onClick={async e => {
               e.preventDefault();
-              storyAssets.setAssetCreateState(false);
+              StoryAssetData.setAssetCreate(false);
             }}>
             {" "}
             Cancel
           </button>
         </form>
-      )}
-    </Subscribe>
+
   );
 }
 

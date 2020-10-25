@@ -1,11 +1,8 @@
-import React, { Component } from "react";
-import Router from "next/router";
+import React from "react";
 import store from "store";
-import { useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
-import { flattenObjectsValues } from "../../utilityFunctions/generalUtilities";
 import Link from "next/link";
 
 /**
@@ -16,10 +13,7 @@ const GET_STORY_PARTS = gql`
     storyParts(token: $token, storyId: $storyId) {
       id
       order
-      defaultFields {
-        name
-        value
-      }
+      title
     }
   }
 `;
@@ -42,7 +36,7 @@ function StoryPartList(props) {
   if (loading) return "Loading...";
   if (error) return `Error! ${error.message}`;
   return data.storyParts.length > 0 ? (
-    flattenObjectsValues(data.storyParts).map((storyPart, i, a) => {
+    data.storyParts.map((storyPart, i, a) => {
       return (
         <div className="bg-gray-100 border p-2 mb-4" key={storyPart.id}>
           <header>

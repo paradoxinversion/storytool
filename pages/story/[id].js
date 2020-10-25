@@ -1,16 +1,11 @@
 import { storyParts } from "../../developmentData/data";
 import Link from "next/link";
 import StoryOverview from "../../components/StoryOverview/StoryOverview";
-import SecureRoute from "../../components/SecureRoute/SecureRoute";
 import { withRouter } from "next/router";
 import CommonLayout from "../../components/CommonLayout/CommonLayout";
 /**
  * The main page for a story
  */
-
-// function Story(props) {
-//   return <StoryOverview storyId={props.router.query.id} />;
-// }
 function Story(props) {
   return (
     <CommonLayout>

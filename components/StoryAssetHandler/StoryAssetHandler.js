@@ -1,24 +1,19 @@
 import { withRouter } from "next/router";
-import React, { Component } from "react";
+import React from "react";
 import StoryAssetEdit from "../StoryAssetEdit/StoryAssetEdit";
-import { Subscribe } from "unstated";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
-import { flattenObjectValues } from "../../utilityFunctions/generalUtilities";
-import StoryAssetContainer from "../../containers/StoryAssetContainer";
 import StoryAssetDisplay from "../StoryAssetDisplay/StoryAssetDisplay";
 import store from "store";
+import StoryAssets from "../../hooks/useStoryAssets";
 const GET_STORY_PART = gql`
   query storyParts($token: String!, $storyPartId: String!) {
     storyPart(token: $token, storyPartId: $storyPartId) {
       id
       order
       story
-      defaultFields {
-        name
-        value
-        fieldType
-      }
+      title
+      text
     }
   }
 `;
@@ -62,6 +57,7 @@ const GET_STORY_PART = gql`
 // }
 
 function StoryAssetHandler(props) {
+  const StoryAssetData = StoryAssets.useContainer();
   // props.assetType tells us which mutation or query to run
   const { loading, error, data } = useQuery(GET_STORY_PART, {
     variables: {
@@ -73,26 +69,22 @@ function StoryAssetHandler(props) {
   if (error) return `Error! ${error.message}`;
 
   return (
-    <Subscribe to={[StoryAssetContainer]}>
-      {storyAssets => (
-        <div>
-          {data ? (
-            <React.Fragment>
-              {storyAssets.state.editingAsset ? (
-                <StoryAssetEdit storyAsset={data.storyPart} />
-              ) : (
-                <StoryAssetDisplay
-                  assetType={props.assetType}
-                  storyAsset={flattenObjectValues(data.storyPart)}
-                />
-              )}
-            </React.Fragment>
+    <div>
+      {data ? (
+        <React.Fragment>
+          {StoryAssetData.editingAsset ? (
+            <StoryAssetEdit storyAsset={data.storyPart} />
           ) : (
-            <div>Loading</div>
+            <StoryAssetDisplay
+              assetType={props.assetType}
+              storyAsset={data.storyPart}
+            />
           )}
-        </div>
+        </React.Fragment>
+      ) : (
+        <div>Loading</div>
       )}
-    </Subscribe>
+    </div>
   );
 }
 
