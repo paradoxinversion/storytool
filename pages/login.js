@@ -19,11 +19,11 @@ function LogIn() {
         <input
           className="border"
           name="username"
-          onChange={e => {
+          onChange={(e) => {
             // handleFormChange(e.target.value);
             setFormData({
               ...formData,
-              [e.target.name]: e.target.value
+              [e.target.name]: e.target.value,
             });
           }}
           type="text"
@@ -34,18 +34,18 @@ function LogIn() {
           className="border"
           type="password"
           name="password"
-          onChange={e => {
+          onChange={(e) => {
             // handleFormChange(e.target.value);
             setFormData({
               ...formData,
-              [e.target.name]: e.target.value
+              [e.target.name]: e.target.value,
             });
           }}
           value={formData["password"]}
         />
         <button
           className="border-0 p-2 mt-4 rounded main-dark-bg main-light"
-          onClick={async e => {
+          onClick={async (e) => {
             // send a gql call with this data
             // display fail or success
             e.preventDefault();
@@ -56,14 +56,17 @@ function LogIn() {
                 formData,
                 { withCredentials: true }
               );
-              debugger;
-              UserData.setUserData({username: login.data.username, token: login.data.token})
+              UserData.setUserData({
+                username: login.data.username,
+                token: login.data.token,
+              });
               store.set("storytool_id", login.data.token);
               return Router.push("/dashboard");
             } catch (error) {
               console.log(error);
             }
-          }}>
+          }}
+        >
           {" "}
           Log In
         </button>

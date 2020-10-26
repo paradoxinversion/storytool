@@ -1,5 +1,5 @@
 import { withRouter } from "next/router";
-import React from "react";
+import React, { useEffect } from "react";
 import StoryAssetEdit from "../StoryAssetEdit/StoryAssetEdit";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
@@ -62,22 +62,25 @@ function StoryAssetHandler(props) {
   const { loading, error, data } = useQuery(GET_STORY_PART, {
     variables: {
       token: store.get("storytool_id"),
-      storyPartId: props.router.query.id
-    }
+      storyPartId: props.router.query.id,
+    },
   });
+  useEffect(() => {
+    StoryAssetData.setStoryAssetData(data);
+  }, [data]);
   if (loading) return "Loading...";
   if (error) return `Error! ${error.message}`;
 
   return (
     <div>
-      {data ? (
+      {StoryAssetData.storyAssets ? (
         <React.Fragment>
           {StoryAssetData.editingAsset ? (
-            <StoryAssetEdit storyAsset={data.storyPart} />
+            <StoryAssetEdit storyAsset={StoryAssetData.storyAssets.storyPart} />
           ) : (
             <StoryAssetDisplay
               assetType={props.assetType}
-              storyAsset={data.storyPart}
+              storyAsset={StoryAssetData.storyAssets.storyPart}
             />
           )}
         </React.Fragment>
